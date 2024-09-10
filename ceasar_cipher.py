@@ -1,18 +1,25 @@
-text = 'Hello Ajay'
-shift = 3
-
-def caesar(message, offset):
+def caesar(message, offset, mode):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    encrypted_text = ''
+    result_text = ''
 
     for char in message.lower():
         if char == ' ':
-            encrypted_text += char
+            result_text += char
         else:
             index = alphabet.find(char)
-            new_index = (index + offset) % len(alphabet)
-            encrypted_text += alphabet[new_index]
-    print('plain text:', message)
-    print('encrypted text:', encrypted_text)
+            if mode == 'encrypt':
+                new_index = (index + offset) % len(alphabet)
+            elif mode == 'decrypt':
+                new_index = (index - offset) % len(alphabet)
+            result_text += alphabet[new_index]
+    return result_text
 
-caesar(text, shift)
+text = 'Hello Ajay'
+shift = 3
+
+encrypted_text = caesar(text, shift, 'encrypt')
+print('plain text:', text)
+print('encrypted text:', encrypted_text)
+
+decrypted_text = caesar(encrypted_text, shift, 'decrypt')
+print('decrypted text:', decrypted_text)
